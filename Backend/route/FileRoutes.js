@@ -13,7 +13,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post("/upload", upload.single("profile"), fileUploadController);
+router.post(
+  "/upload",
+  upload.fields([
+    { name: "adharcardFpic", maxCount: 1 },
+    { name: "adharcardBackpic", maxCount: 1 }
+  ]),
+  fileUploadController
+);
+
 
 
 module.exports = router;
