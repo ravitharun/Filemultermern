@@ -5,7 +5,10 @@ const userSchema = new mongoose.Schema(
     {
         name: { type: String },
         email: { type: String },
-        isVerify_user: { type: Boolean, default: false },
+        isVerify_user: {
+            type: Boolean,
+            default: false
+        },
         Mobilenumber: { type: Number },
         Cardnumberadhar: { type: Number },
         adharcardFpic: { type: String },

@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const { cloudinary } = require("../config/Cloud");
 const { userSchemas } = require("../Schema/Users");
 
@@ -46,7 +47,7 @@ const fileUploadController = async (req, res) => {
 const getall = async (req, res) => {
     try {
         const GetData = await userSchemas.find({})
-        console.log(GetData,'GetData user ionfo')
+
         return res.status(200).json({ message: GetData })
 
     } catch (error) {
@@ -55,4 +56,32 @@ const getall = async (req, res) => {
     }
 }
 
-module.exports = { fileUploadController, getall };
+
+
+// update vrfy fucntion
+
+const updateByUserById = async (req, res) => {
+    try {
+        const { update } = req.body
+        console.log(update.byid, 'updateInfo json data')
+        console.log(update.vrfuser, 'updateInfo json data')
+        console.log(typeof (update.vrfuser))
+        if (!update) {
+            console.log("updateInfo is not comming")
+        }
+
+
+        const upd = await userSchemas.findByIdAndUpdate(
+            update.byid,
+            { $set: { isVerify_user: Boolean(true) } },
+            { new: true, runValidators: true }
+        );
+        console.log(upd)
+        return res.status(200).json({ message: "User is vrfyed" })
+    }
+    catch (err) {
+        console.log(err.message, 'err.message')
+        return res.status(500).json({ message: err.message })
+    }
+}
+module.exports = { fileUploadController, getall, updateByUserById };
