@@ -1,5 +1,8 @@
 const { cloudinary } = require("../config/Cloud");
 const { userSchemas } = require("../Schema/Users");
+
+
+
 const fileUploadController = async (req, res) => {
     try {
         console.log("BODY:", req.body);
@@ -39,4 +42,17 @@ const fileUploadController = async (req, res) => {
     }
 };
 
-module.exports = { fileUploadController };
+// get ALL 
+const getall = async (req, res) => {
+    try {
+        const GetData = await userSchemas.find({})
+        console.log(GetData,'GetData user ionfo')
+        return res.status(200).json({ message: GetData })
+
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+module.exports = { fileUploadController, getall };

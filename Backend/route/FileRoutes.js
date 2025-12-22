@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const { fileUploadController } = require("../controllers/Fileupload");
+const { fileUploadController, getall } = require("../controllers/Fileupload");
 // Multer setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,6 +20,11 @@ router.post(
     { name: "adharcardBackpic", maxCount: 1 }
   ]),
   fileUploadController
+);
+router.get(
+  "/getall",
+
+  getall
 );
 
 
