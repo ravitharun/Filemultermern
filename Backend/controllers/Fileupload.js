@@ -10,9 +10,12 @@ const fileUploadController = async (req, res) => {
         console.log("FILES:", req.files);
 
         if (!req.files || !req.files.adharcardFpic || !req.files.adharcardBackpic) {
-            return res.status(400).json({ message: "Files missing" });
+             res.status(400).json({ message: "Files missing" });
         }
-
+        else if (req.body.Cardnumberadhar.length > 12) {
+            console.log("Adharcard should be 12 digits")
+            return res.status(411).json({ message: "Adharcard should be 12 digits" })
+        }
 
         const frontImagePath = req.files.adharcardFpic[0].path;
         const backImagePath = req.files.adharcardBackpic[0].path;
